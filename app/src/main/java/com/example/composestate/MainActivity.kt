@@ -74,8 +74,11 @@ class MainActivity : ComponentActivity() {
                                 contentDescription = "",
                                 Modifier
                                     .clickable {
+
                                             viewModel.state.value.listState.removeAt(it)
                                             viewModel.upDateEditText(" ")
+
+
                                     }
                                     .align(Alignment.End)
                             )
