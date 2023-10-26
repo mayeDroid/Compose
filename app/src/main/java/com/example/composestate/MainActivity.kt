@@ -100,6 +100,7 @@ class MainActivity : ComponentActivity() {
                                             val a = mutableListOf<String>("")
                                             a[0] = item
                                             a.removeAt(0)
+                                            var b = "w"
 
 
                                         }
