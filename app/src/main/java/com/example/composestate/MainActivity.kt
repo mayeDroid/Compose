@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
@@ -48,6 +49,10 @@ class MainActivity : ComponentActivity() {
 
                     val listOfNames = remember { mutableStateListOf<String>() } // remember savable will not work reason why we using viewmodel*/
 
+                    val deletedItem = remember{
+                        mutableStateListOf<SaveStateOfScreen>()
+                    }
+
                     EditTextComposable(
                         textValue = state.value.editTextState,
                         onValueChanged = { viewModel.upDateEditText(it) },
@@ -68,23 +73,41 @@ class MainActivity : ComponentActivity() {
                             .weight(1f),
                     ) {
 
-                        items(state.value.listState.size) {
-                            Text(text = state.value.listState[it],)
-                            Icon(imageVector = Icons.Default.Delete,
-                                contentDescription = "",
-                                Modifier
-                                    .clickable {
-
-                                            viewModel.state.value.listState.removeAt(it)
-                                            viewModel.upDateEditText(" ")
-
-
-                                    }
-                                    .align(Alignment.End)
-                            )
+                        /* items(state.value.listState.size) {
+                             Text(text = state.value.listState[it],)
+                             Icon(imageVector = Icons.Default.Delete,
+                                 contentDescription = "",
+                                 Modifier
+                                     .clickable {
+                                             viewModel.state.value.listState.removeAt(it)
+                                             state.value.editTextState = " "
+                                     }
+                                     .align(Alignment.End)
+                             )
 
 
-                        }
+                         }*/
+
+                        itemsIndexed(
+                            items = state.value.listState,
+                            itemContent = {
+                                _, item ->
+                                Text(text = item.toString(),)
+                                Icon(imageVector = Icons.Default.Delete,
+                                    contentDescription = "",
+                                    Modifier
+                                        .clickable {
+                                            val a = mutableListOf<String>("")
+                                            a[0] = item
+                                            a.removeAt(0)
+
+
+                                        }
+                                        .align(Alignment.End)
+                                )
+
+                            }
+                        )
 
                     }
 
